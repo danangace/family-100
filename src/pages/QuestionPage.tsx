@@ -28,7 +28,7 @@ function QuestionPage() {
     }))
   )
   const nextQuestionId = questionId + 1
-  const totalQuestion = Object.keys(questions).length
+  const totalQuestion = Object.keys(questions).length - 1
 
   useEffect(() => {
     setAnswers(
