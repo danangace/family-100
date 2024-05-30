@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react"
+import { useState, useEffect, FormEvent, ReactElement } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
 
@@ -30,16 +30,22 @@ function QuestionPage() {
   )
   const totalQuestion = Object.keys(questions).length
 
-  const questionText =
-  questionId === 0 ? (
-    <>
-      Contoh dolo nih yaa... <br /> {questions[questionId].question}
-    </>
-  ) : (
-    <>
-      {questionId}. {questions[questionId].question}
-    </>
-  );
+  const renderTitle = (questions: QuestionAnswer, id: number): ReactElement => {
+    const question = questions[id].question
+    if (id === 0) {
+      return (
+        <>
+          Contoh dolo nih yaa... <br /> {question}
+        </>
+      )
+    } else {
+      return (
+        <>
+          {questionId}. {question}
+        </>
+      )
+    }
+  }
 
   useEffect(() => {
     setAnswers(
@@ -50,48 +56,34 @@ function QuestionPage() {
     )
   }, [questionId])
 
-  const goToNavigateQuestion = (isNext:boolean) => {
-    setLoading(true);
+  const goToNavigateQuestion = (isNext: boolean) => {
+    setLoading(true)
 
     setAnswers(
       questions[questionId].answers.map((a) => ({
         ...a,
-        isCorrect: false,
+        isCorrect: false
       }))
-    );
+    )
 
     // wait 1 second before navigate
     setTimeout(() => {
-      setLoading(false);
-      setAnswer("");
+      setLoading(false)
+      setAnswer("")
 
       if (isNext) {
         if (questionId >= totalQuestion - 1) {
-          navigate('/thankyou');
+          navigate("/thankyou")
         } else {
-          navigate(`/${questionId + 1}`);
+          navigate(`/${questionId + 1}`)
         }
       } else {
         if (questionId > 0) {
-          navigate(`/${questionId - 1}`);
+          navigate(`/${questionId - 1}`)
         }
       }
-    }, 1000);
-  };
-
-  const PreviousButton = () => {
-    if (questionId > 0) {
-      const word = questionId === 1 ? "👈 balik ke contoh" : "👈 Balik ke sebelumnya";
-      return (
-        <div>
-          <Button onClick={() => goToNavigateQuestion(false)}>
-            {word}
-          </Button>
-        </div>
-      );
-    }
-    return null;
-  };
+    }, 1000)
+  }
 
   const NextButton = () => {
     if (questionId === totalQuestion - 1) {
@@ -99,7 +91,7 @@ function QuestionPage() {
         <Link to="/thankyou">
           <Button>Selesai 🎉</Button>
         </Link>
-      );
+      )
     }
     return (
       <div>
@@ -107,8 +99,8 @@ function QuestionPage() {
           Lanjut ke pertanyaan {questionId + 1} 👉
         </Button>
       </div>
-    );
-  };
+    )
+  }
 
   const checkAnswer = (event: FormEvent) => {
     event.preventDefault()
@@ -126,7 +118,7 @@ function QuestionPage() {
         variant: "destructive",
         duration: TOAST_DURATION
       })
-      playSound('error')
+      playSound("error")
       return
     } else {
       toast({
@@ -134,7 +126,7 @@ function QuestionPage() {
         description: "Selamat!",
         duration: TOAST_DURATION
       })
-      playSound('success')
+      playSound("success")
       setAnswer("")
       setAnswers((prev) =>
         prev.map((ans, index) => {
@@ -162,64 +154,66 @@ function QuestionPage() {
     <>
       <div className=" w-full min-h-svh flex items-center justify-center p-4">
         <div className=" flex flex-col items-center">
-          <div>
-              {loading ? (
-                <Skeleton className="h-8 w-full sm:w-[1000px] mb-4" />
-              ) : (
-                <>
-                  <div className=" p-6 w-full sm:w-[800px] mb-4">
-                    <h2 className="text-3xl mb-4 text-center text-gray-700">
-                     {questionText}
-                    </h2>
-                  </div>
-                </>
-              )}
-            </div>
-            <div className=" mb-16 mx-auto w-full">
-              <form
-                className=" flex flex-col sm:flex-row gap-2 mb-4"
-                onSubmit={checkAnswer}
-              >
-                <Input
-                  type="text"
-                  placeholder="Apa Jawaban Kamu?"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                <Button type="submit">Cek Jawaban 🧐</Button>
-              </form>
-              <Separator className=" mb-4" />
-              <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-                {answers.map((a, i) => (
-                  <Answer
-                    key={i}
-                    answer={a.answer}
-                    score={a.score}
-                    isCorrect={a.isCorrect!}
-                    onClick={() => {
-                      setAnswers((prev) =>
-                        prev.map((ans, index) => {
-                          if (index === i) {
-                            return {
-                              ...ans,
-                              isCorrect: true
-                            }
-                          }
-                          return ans
-                        })
-                      )
-                    }}
-                  />
-                ))}
+          {loading ? (
+            <Skeleton className="h-8 w-full sm:w-[1000px] mb-4" />
+          ) : (
+            <>
+              <div className=" p-6 w-full sm:w-[800px] mb-4">
+                <h2 className="text-3xl mb-4 text-center text-gray-700">
+                  {renderTitle(questions, questionId)}
+                </h2>
               </div>
+            </>
+          )}
+          <div className=" mb-16 mx-auto w-full">
+            <form
+              className=" flex flex-col sm:flex-row gap-2 mb-4"
+              onSubmit={checkAnswer}
+            >
+              <Input
+                type="text"
+                placeholder="Apa Jawaban Kamu?"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+              />
+              <Button type="submit">Cek Jawaban 🧐</Button>
+            </form>
+            <Separator className=" mb-4" />
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+              {answers.map((a, i) => (
+                <Answer
+                  key={i}
+                  answer={a.answer}
+                  score={a.score}
+                  isCorrect={a.isCorrect!}
+                  onClick={() => {
+                    setAnswers((prev) =>
+                      prev.map((ans, index) => {
+                        if (index === i) {
+                          return {
+                            ...ans,
+                            isCorrect: true
+                          }
+                        }
+                        return ans
+                      })
+                    )
+                  }}
+                />
+              ))}
             </div>
-            <div className="flex items-center gap-4">
-              <PreviousButton />
-              {questionId !== 0 && (
-                <Separator  orientation="vertical"  />
-              )}
-              <NextButton />
-            </div>
+          </div>
+          <div className="flex gap-4 h-[40px]">
+            {questionId !== 0 && (
+              <>
+                <Button onClick={() => goToNavigateQuestion(false)}>
+                  👈 Balik ke sebelumnya
+                </Button>
+                <Separator orientation="vertical" className=" bg-black" />
+              </>
+            )}
+            <NextButton />
+          </div>
         </div>
       </div>
       <Toaster />
