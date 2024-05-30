@@ -203,13 +203,16 @@ function QuestionPage() {
               ))}
             </div>
           </div>
-          <div className="flex gap-4 h-[40px]">
+          <div className="flex flex-col-reverse sm:flex-row gap-4 h-[40px] mt-4">
             {questionId !== 0 && (
               <>
                 <Button onClick={() => goToNavigateQuestion(false)}>
                   👈 Balik ke sebelumnya
                 </Button>
-                <Separator orientation="vertical" className=" bg-black" />
+                <Separator
+                  orientation="vertical"
+                  className=" bg-black hidden sm:block"
+                />
               </>
             )}
             <NextButton />
