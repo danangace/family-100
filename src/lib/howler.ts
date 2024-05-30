@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
-import SuccessAudio from '../assets/audio/correct_answer.mp3';
-import ErrorAudio from '../assets/audio/wrong_answer.mp3';
+import SuccessAudio from '@/assets/audio/correct_answer.mp3';
+import ErrorAudio from '@/assets/audio/wrong_answer.mp3';
 
 const sounds: Record<string, any> = {
   success: new Howl({

@@ -1,7 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from "./App.tsx"
 import QuestionPage from "./pages/QuestionPage.tsx"
 import ScrollToTop from "./components/ScrollToTop.tsx"
