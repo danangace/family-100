@@ -2,7 +2,11 @@ import { Howl } from 'howler';
 import SuccessAudio from '@/assets/audio/correct_answer.mp3';
 import ErrorAudio from '@/assets/audio/wrong_answer.mp3';
 
-const sounds: Record<string, any> = {
+type Sound = {
+  [key: string] : Howl
+}
+
+const sounds: Sound = {
   success: new Howl({
     src: [SuccessAudio],
     volume: 0.5
