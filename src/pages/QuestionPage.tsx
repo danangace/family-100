@@ -28,8 +28,18 @@ function QuestionPage() {
       isCorrect: false
     }))
   )
-  const nextQuestionId = questionId + 1
   const totalQuestion = Object.keys(questions).length
+
+  const questionText =
+  questionId === 0 ? (
+    <>
+      Contoh dolo nih yaa... <br /> {questions[questionId].question}
+    </>
+  ) : (
+    <>
+      {questionId}. {questions[questionId].question}
+    </>
+  );
 
   useEffect(() => {
     setAnswers(
@@ -40,39 +50,65 @@ function QuestionPage() {
     )
   }, [questionId])
 
-  const goToNextQuestion = () => {
-    setLoading(true)
+  const goToNavigateQuestion = (isNext:boolean) => {
+    setLoading(true);
+
     setAnswers(
       questions[questionId].answers.map((a) => ({
         ...a,
-        isCorrect: false
+        isCorrect: false,
       }))
-    )
+    );
 
     // wait 1 second before navigate
     setTimeout(() => {
-      setLoading(false)
-      setAnswer("")
-      navigate(`/${nextQuestionId}`)
-    }, 1000)
-  }
+      setLoading(false);
+      setAnswer("");
+
+      if (isNext) {
+        if (questionId >= totalQuestion - 1) {
+          navigate('/thankyou');
+        } else {
+          navigate(`/${questionId + 1}`);
+        }
+      } else {
+        if (questionId > 0) {
+          navigate(`/${questionId - 1}`);
+        }
+      }
+    }, 1000);
+  };
+
+  const PreviousButton = () => {
+    if (questionId > 0) {
+      const word = questionId === 1 ? "👈 balik ke contoh" : "👈 Balik ke sebelumnya";
+      return (
+        <div>
+          <Button onClick={() => goToNavigateQuestion(false)}>
+            {word}
+          </Button>
+        </div>
+      );
+    }
+    return null;
+  };
 
   const NextButton = () => {
-    if (questionId === totalQuestion) {
+    if (questionId === totalQuestion - 1) {
       return (
         <Link to="/thankyou">
           <Button>Selesai 🎉</Button>
         </Link>
-      )
+      );
     }
     return (
       <div>
-        <Button onClick={() => goToNextQuestion()}>
-          Pertanyaan ke {nextQuestionId} 👉
+        <Button onClick={() => goToNavigateQuestion(true)}>
+          Lanjut ke pertanyaan {questionId + 1} 👉
         </Button>
       </div>
-    )
-  }
+    );
+  };
 
   const checkAnswer = (event: FormEvent) => {
     event.preventDefault()
@@ -126,52 +162,64 @@ function QuestionPage() {
     <>
       <div className=" w-full min-h-svh flex items-center justify-center p-4">
         <div className=" flex flex-col items-center">
-          {loading ? (
-            <Skeleton className=" h-8 w-full sm:w-[500px] mb-4" />
-          ) : (
-            <h1 className=" text-3xl mb-4 text-center">
-              {questions[questionId].question}
-            </h1>
-          )}
-          <div className=" mb-16 mx-auto w-full">
-            <form
-              className=" flex flex-col sm:flex-row gap-2 mb-4"
-              onSubmit={checkAnswer}
-            >
-              <Input
-                type="text"
-                placeholder="Apa Jawaban Kamu?"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-              />
-              <Button type="submit">Cek Jawaban 🧐</Button>
-            </form>
-            <Separator className=" mb-4" />
-            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 ">
-              {answers.map((a, i) => (
-                <Answer
-                  key={i}
-                  answer={a.answer}
-                  score={a.score}
-                  isCorrect={a.isCorrect!}
-                  onClick={() => {
-                    setAnswers((prev) =>
-                      prev.map((ans, index) => {
-                        if (index === i) {
-                          return {
-                            ...ans,
-                            isCorrect: true
-                          }
-                        }
-                        return ans
-                      })
-                    )
-                  }}
-                />
-              ))}
+          <div>
+              {loading ? (
+                <Skeleton className="h-8 w-full sm:w-[1000px] mb-4" />
+              ) : (
+                <>
+                  <div className=" p-6 w-full sm:w-[800px] mb-4">
+                    <h2 className="text-3xl mb-4 text-center text-gray-700">
+                     {questionText}
+                    </h2>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
-          <NextButton />
+            <div className=" mb-16 mx-auto w-full">
+              <form
+                className=" flex flex-col sm:flex-row gap-2 mb-4"
+                onSubmit={checkAnswer}
+              >
+                <Input
+                  type="text"
+                  placeholder="Apa Jawaban Kamu?"
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                />
+                <Button type="submit">Cek Jawaban 🧐</Button>
+              </form>
+              <Separator className=" mb-4" />
+              <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+                {answers.map((a, i) => (
+                  <Answer
+                    key={i}
+                    answer={a.answer}
+                    score={a.score}
+                    isCorrect={a.isCorrect!}
+                    onClick={() => {
+                      setAnswers((prev) =>
+                        prev.map((ans, index) => {
+                          if (index === i) {
+                            return {
+                              ...ans,
+                              isCorrect: true
+                            }
+                          }
+                          return ans
+                        })
+                      )
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <PreviousButton />
+              {questionId !== 0 && (
+                <Separator  orientation="vertical"  />
+              )}
+              <NextButton />
+            </div>
         </div>
       </div>
       <Toaster />

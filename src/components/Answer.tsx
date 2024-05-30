@@ -16,7 +16,7 @@ function Answer({ answer, score, isCorrect, onClick }: AnswerProps) {
       )}
       onClick={isCorrect ? undefined : onClick}
     >
-      <div className="text-center">???</div>
+      <div className="text-center">????</div>
       <div className="bg-black text-white rounded-md shadow-md absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden] flex items-center justify-between px-4">
         <p className=" font-serif font-semibold">{answer}</p>
         <p className=" font-bold">{score}</p>

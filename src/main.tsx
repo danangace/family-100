@@ -26,8 +26,8 @@ const router = createBrowserRouter([
     element: (
       <div className=" w-full h-svh flex items-center justify-center text-center p-4">
         <h1 className=" text-3xl">
-          Makasih yaa udah main <br />
-          🩷🩷🩷
+          Makasih yaa udah main, tungguin kita next tonhol ya <br />
+          🙏🙏🙏
         </h1>
       </div>
     )
