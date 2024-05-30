@@ -10,9 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import Answer from "@/components/Answer"
 
 import questions from "@/lib/questions"
-
-import SuccessAudio from '../assets/audio/correct_answer.mp3'
-import ErrorAudio from '../assets/audio/wrong_answer.mp3'
+import playSound from "@/lib/howler"
 
 function QuestionPage() {
   const { toast } = useToast()
@@ -77,8 +75,6 @@ function QuestionPage() {
   }
 
   const checkAnswer = (event: FormEvent) => {
-    const successAudio = new Audio(SuccessAudio)
-    const errorAudio = new Audio(ErrorAudio)
     event.preventDefault()
 
     const currentAnswer = answer.toLowerCase()
@@ -94,7 +90,7 @@ function QuestionPage() {
         variant: "destructive",
         duration: TOAST_DURATION
       })
-      errorAudio.play()
+      playSound('error')
       return
     } else {
       toast({
@@ -102,8 +98,8 @@ function QuestionPage() {
         description: "Selamat!",
         duration: TOAST_DURATION
       })
+      playSound('success')
       setAnswer("")
-      successAudio.play()
       setAnswers((prev) =>
         prev.map((ans, index) => {
           if (index === indexCorrectAnswer) {
