@@ -69,17 +69,17 @@ const questions: QuestionAnswer = {
       { answer: "Banyak Kerjaan", score: 50 },
       { answer: "Galau", score: 40 },
       { answer: "Stres", score: 30 },
-      { answer: "Penat", score: 10 }
+      { answer: "Penat", score: 10 },
+      { answer: "Hot Fix", score: 70 },
+      { answer: "Grooming", score: 60 }
     ]
   },
   8: {
-    question:
-      "Materi baca tulis apa yang biasanya dipelajari siswa di mata pelajaran Bahasa Indonesia?",
+    question: "Apa yang orang ucapkan ketika test mikrofon?",
     answers: [
-      { answer: "Pantun", score: 30 },
-      { answer: "Puisi", score: 40 },
-      { answer: "Cerpen", score: 20 },
-      { answer: "EYD", score: 50 }
+      { answer: "Tes", score: 30 },
+      { answer: "Halo", score: 40 },
+      { answer: "Cek", score: 20 }
     ]
   },
   9: {
@@ -88,7 +88,8 @@ const questions: QuestionAnswer = {
       { answer: "Gelisah", score: 20 },
       { answer: "Sakit", score: 10 },
       { answer: "Insomnia", score: 30 },
-      { answer: "Minum Kopi", score: 40 }
+      { answer: "Minum Kopi", score: 40 },
+      { answer: "Hot Fix", score: 60 }
     ]
   },
   10: {
