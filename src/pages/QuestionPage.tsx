@@ -23,16 +23,20 @@ function QuestionPage() {
 
   const questionId: number = +params.questionId!
   const [answers, setAnswers] = useState<Answer[]>(
-    questions[questionId].answers.map((a) => ({
+    questions[questionId]?.answers.map((a) => ({
       ...a,
       isCorrect: false
-    }))
+    })) || []
   )
   const totalQuestion = Object.keys(questions).length
 
   const renderTitle = (questions: QuestionAnswer, id: number): ReactElement => {
-    const question = questions[id].question
-    if (id === 0) {
+    // if (isNaN(id) || !questions[id]) {
+    //   return <h1>404 Ga ketemu nih 🙄</h1>
+    // }
+
+    const question = questions[id]?.question
+    if (!id) {
       return (
         <>
           Contoh dolo nih yaa... <br /> {question}
@@ -48,6 +52,10 @@ function QuestionPage() {
   }
 
   useEffect(() => {
+    if (isNaN(questionId) || !questions[questionId]) {
+      navigate("/404", { replace: true })
+    }
+
     setAnswers(
       questions[questionId].answers.map((a) => ({
         ...a,
