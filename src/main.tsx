@@ -31,6 +31,14 @@ const router = createBrowserRouter([
         </h1>
       </div>
     )
+  },
+  {
+    path: "/404",
+    element: (
+      <div className=" w-full h-svh flex items-center justify-center text-center p-4">
+        <h1 className=" text-3xl">404 Ga ketemu nih 🙄</h1>
+      </div>
+    )
   }
 ])
 
