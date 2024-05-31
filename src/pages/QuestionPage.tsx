@@ -211,7 +211,7 @@ function QuestionPage() {
               ))}
             </div>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row gap-4 h-[40px] mt-4">
+          <div className="flex flex-col-reverse sm:flex-row gap-4 min-h-[40px] mt-4">
             {questionId !== 0 && (
               <>
                 <Button onClick={() => goToNavigateQuestion(false)}>
@@ -223,6 +223,13 @@ function QuestionPage() {
                 />
               </>
             )}
+            <Link to="/thankyou">
+              <Button className=" w-full">🏁 Udahan yaa~</Button>
+            </Link>
+            <Separator
+              orientation="vertical"
+              className=" bg-black hidden sm:block"
+            />
             <NextButton />
           </div>
         </div>
