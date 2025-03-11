@@ -7,7 +7,7 @@ function App() {
       <div>
         <h1 className=" text-3xl mb-4">FAMILY 100 #ceritanya... 🤔</h1>
         <Link to="/0">
-          <Button>Pertanyaan Contoh 👉</Button>
+          <Button>Mulai ga neh 👉</Button>
         </Link>
       </div>
     </div>

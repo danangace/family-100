@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react"
+import { useState, useEffect, FormEvent, ReactElement } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
 
@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import Answer from "@/components/Answer"
 
 import questions from "@/lib/questions"
+import playSound from "@/lib/howler"
 
 function QuestionPage() {
   const { toast } = useToast()
@@ -22,15 +23,39 @@ function QuestionPage() {
 
   const questionId: number = +params.questionId!
   const [answers, setAnswers] = useState<Answer[]>(
-    questions[questionId].answers.map((a) => ({
+    questions[questionId]?.answers.map((a) => ({
       ...a,
       isCorrect: false
-    }))
+    })) || []
   )
-  const nextQuestionId = questionId + 1
   const totalQuestion = Object.keys(questions).length
 
+  const renderTitle = (questions: QuestionAnswer, id: number): ReactElement => {
+    // if (isNaN(id) || !questions[id]) {
+    //   return <h1>404 Ga ketemu nih 🙄</h1>
+    // }
+
+    const question = questions[id]?.question
+    if (!id) {
+      return (
+        <>
+          Contoh dolo nih yaa... <br /> {question}
+        </>
+      )
+    } else {
+      return (
+        <>
+          {questionId}. {question}
+        </>
+      )
+    }
+  }
+
   useEffect(() => {
+    if (isNaN(questionId) || !questions[questionId]) {
+      navigate("/404", { replace: true })
+    }
+
     setAnswers(
       questions[questionId].answers.map((a) => ({
         ...a,
@@ -39,8 +64,9 @@ function QuestionPage() {
     )
   }, [questionId])
 
-  const goToNextQuestion = () => {
+  const goToNavigateQuestion = (isNext: boolean) => {
     setLoading(true)
+
     setAnswers(
       questions[questionId].answers.map((a) => ({
         ...a,
@@ -52,12 +78,23 @@ function QuestionPage() {
     setTimeout(() => {
       setLoading(false)
       setAnswer("")
-      navigate(`/${nextQuestionId}`)
+
+      if (isNext) {
+        if (questionId >= totalQuestion - 1) {
+          navigate("/thankyou")
+        } else {
+          navigate(`/${questionId + 1}`)
+        }
+      } else {
+        if (questionId > 0) {
+          navigate(`/${questionId - 1}`)
+        }
+      }
     }, 1000)
   }
 
   const NextButton = () => {
-    if (questionId === totalQuestion) {
+    if (questionId === totalQuestion - 1) {
       return (
         <Link to="/thankyou">
           <Button>Selesai 🎉</Button>
@@ -66,8 +103,8 @@ function QuestionPage() {
     }
     return (
       <div>
-        <Button onClick={() => goToNextQuestion()}>
-          Pertanyaan ke {nextQuestionId} 👉
+        <Button onClick={() => goToNavigateQuestion(true)}>
+          Lanjut ke pertanyaan {questionId + 1} 👉
         </Button>
       </div>
     )
@@ -78,9 +115,10 @@ function QuestionPage() {
 
     const currentAnswer = answer.toLowerCase()
 
-    const indexCorrectAnswer = answers.findIndex(
-      (a) => a.answer.toLowerCase() === currentAnswer
-    )
+    const indexCorrectAnswer = answers.findIndex((a) => {
+      const possibleKeywords = a.answer.toLowerCase().split(/[\s/]+/); // Pisahkan dengan spasi atau '/'
+      return possibleKeywords.some((keyword) => currentAnswer.toLowerCase().includes(keyword));
+    });
 
     if (indexCorrectAnswer === -1) {
       toast({
@@ -89,6 +127,7 @@ function QuestionPage() {
         variant: "destructive",
         duration: TOAST_DURATION
       })
+      playSound("error")
       return
     } else {
       toast({
@@ -96,6 +135,7 @@ function QuestionPage() {
         description: "Selamat!",
         duration: TOAST_DURATION
       })
+      playSound("success")
       setAnswer("")
       setAnswers((prev) =>
         prev.map((ans, index) => {
@@ -124,11 +164,15 @@ function QuestionPage() {
       <div className=" w-full min-h-svh flex items-center justify-center p-4">
         <div className=" flex flex-col items-center">
           {loading ? (
-            <Skeleton className=" h-8 w-full sm:w-[500px] mb-4" />
+            <Skeleton className="h-8 w-full sm:w-[1000px] mb-4" />
           ) : (
-            <h1 className=" text-3xl mb-4 text-center">
-              {questions[questionId].question}
-            </h1>
+            <>
+              <div className=" p-6 w-full sm:w-[800px] mb-4">
+                <h2 className="text-3xl mb-4 text-center text-gray-700">
+                  {renderTitle(questions, questionId)}
+                </h2>
+              </div>
+            </>
           )}
           <div className=" mb-16 mx-auto w-full">
             <form
@@ -168,7 +212,27 @@ function QuestionPage() {
               ))}
             </div>
           </div>
-          <NextButton />
+          <div className="flex flex-col-reverse sm:flex-row gap-4 min-h-[40px] mt-4">
+            {questionId !== 0 && (
+              <>
+                <Button onClick={() => goToNavigateQuestion(false)}>
+                  👈 Balik ke sebelumnya
+                </Button>
+                <Separator
+                  orientation="vertical"
+                  className=" bg-black hidden sm:block"
+                />
+              </>
+            )}
+            <Link to="/thankyou">
+              <Button className=" w-full">🏁 Udahan yaa~</Button>
+            </Link>
+            <Separator
+              orientation="vertical"
+              className=" bg-black hidden sm:block"
+            />
+            <NextButton />
+          </div>
         </div>
       </div>
       <Toaster />
