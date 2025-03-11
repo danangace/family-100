@@ -115,9 +115,10 @@ function QuestionPage() {
 
     const currentAnswer = answer.toLowerCase()
 
-    const indexCorrectAnswer = answers.findIndex(
-      (a) => a.answer.toLowerCase() === currentAnswer
-    )
+    const indexCorrectAnswer = answers.findIndex((a) => {
+      const possibleKeywords = a.answer.toLowerCase().split(/[\s/]+/); // Pisahkan dengan spasi atau '/'
+      return possibleKeywords.some((keyword) => currentAnswer.toLowerCase().includes(keyword));
+    });
 
     if (indexCorrectAnswer === -1) {
       toast({

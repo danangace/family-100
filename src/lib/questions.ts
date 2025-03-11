@@ -9,97 +9,108 @@ const questions: QuestionAnswer = {
     ]
   },
   1: {
-    question: "Makanan apa yang biasanya dimakan untuk sarapan?",
+    question: "Apa alasan kenapa orang suka telat bales chat?",
     answers: [
-      { answer: "Nasi Goreng", score: 10 },
-      { answer: "Bubur", score: 30 },
-      { answer: "Roti", score: 40 },
-      { answer: "Nasi Uduk", score: 20 }
+      { answer: "Lupa", score: 35 },
+      { answer: "Malas", score: 25 },
+      { answer: "Scroll Tiktok / IG", score: 20 },
+      { answer: "Bingung balas apa", score: 15 },
+      { answer: "HP Lowbat", score: 5 }
     ]
   },
   2: {
     question:
-      "Makanan apa yang dimasukkan ibu-ibu ke dalam tas saat acara selamatan?",
+      "Apa yang bikin orang tiba-tiba jadi mendadak religius?",
     answers: [
-      { answer: "Gorengan", score: 20 },
-      { answer: "Buah", score: 30 },
-      { answer: "Kue", score: 40 },
-      { answer: "Nasi Kotak", score: 10 }
+      { answer: "Masuk bulan Ramadhan", score: 40 },
+      { answer: "Baru kena musibah", score: 30 },
+      { answer: "Ditinggal pas lagi sayang-sayangnya", score: 15 },
+      { answer: "Liat temen-temen udah hijrah", score: 10 },
+      { answer: "Ada petir gede pas sendirian", score: 5 }
     ]
   },
   3: {
-    question: "Pada saat apa orang menitip dibelikan makan kepada teman?",
+    question: "Apa yang bikin orang auto jadi super baik?",
     answers: [
-      { answer: "Sakit", score: 20 },
-      { answer: "Istirahat", score: 30 },
-      { answer: "Sibuk", score: 10 },
-      { answer: "Tidak Ada Uang", score: 40 }
+      { answer: "Mau minjem duit", score: 40 },
+      { answer: "Lagi ulang tahun", score: 30 },
+      { answer: "Manu nebeng", score: 15 },
+      { answer: "Baru gajian", score: 15 }
     ]
   },
   4: {
-    question: "Judul lagu anak-anak apa yang liriknya bercerita tentang hewan?",
+    question: "Hal yang paling sering dilakukan orang pas ngabuburit?",
     answers: [
-      { answer: "Potong Bebek Angsa", score: 20 },
-      { answer: "Cicak Cicak Di Dinding", score: 10 },
-      { answer: "Burung Kakak Tua", score: 30 },
-      { answer: "Anak Kambing Saya", score: 50 }
+      { answer: "Cari Takjil", score: 40 },
+      { answer: "Scroll Medsos", score: 25 },
+      { answer: "Rebahan", score: 20 },
+      { answer: "Olahraga", score: 15 },
+      { answer: "Masak buat buka", score: 10 },
+      { answer: "Nonton", score: 5 },
+      { answer: "Mengaji", score: 5 },
     ]
   },
   5: {
-    question: "Buah apa yang biasa ditepuk-tepuk saat ingin dibeli?",
+    question: "Hal yang paling sering dilakukan pas jam kerja tapi bukan kerja?",
     answers: [
-      { answer: "Kelapa", score: 30 },
-      { answer: "Melon", score: 10 },
-      { answer: "Semangka", score: 20 },
-      { answer: "Duren", score: 40 }
+      { answer: "Scroll TikTok/IG diam-diam", score: 37 },
+      { answer: "Ngobrolin gosip kantor ", score: 25 },
+      { answer: "Ngopi biar keliatan sibuk", score: 18 },
+      { answer: "Cek Shopee padahal tanggal tua", score: 13 },
+      { answer: "Nyari kerjaan lain di Jobstreet 😆", score: 7 }
     ]
   },
   6: {
-    question: "Istilah apa yang menggunakan kata Hitam?",
+    question: "Hal yang paling sering ditanya orang ke ChatGPT?",
     answers: [
-      { answer: "Kambing Hitam", score: 30 },
-      { answer: "Ilmu Hitam", score: 40 },
-      { answer: "Hitam manis", score: 20 },
-      { answer: "Daftar Hitam", score: 10 }
+      { answer: "Ceritain lelucon dong!", score: 30 },
+      { answer: "Bisa bantuin tugas gak?", score: 25 },
+      { answer: "Cara cepet jadi kaya gimana?", score: 19 },
+      { answer: "Kasih ide caption Instagram!", score: 15 },
+      { answer: "Kamu manusia atau robot?", score: 11 }
     ]
   },
   7: {
-    question: "Pada saat kondisi apa orang melakukan Healing?",
+    question: "Makanan yang selalu bikin orang Indonesia berantem?",
     answers: [
-      { answer: "Banyak Kerjaan", score: 50 },
-      { answer: "Galau", score: 40 },
-      { answer: "Stres", score: 30 },
-      { answer: "Penat", score: 10 },
-      { answer: "Hot Fix", score: 70 },
-      { answer: "Grooming", score: 60 }
+      { answer: "Bubur diaduk atau enggak?", score: 37 },
+      { answer: "Nasi padang, pakai sendok atau tangan?", score: 29 },
+      { answer: "Mie instan, kuah atau goreng?", score: 24 },
+      { answer: "Bakso lebih enak pakai mie atau bihun? ", score: 10 }
     ]
   },
   8: {
-    question: "Apa yang orang ucapkan ketika test mikrofon?",
+    question: "Hal yang bikin orang Indonesia auto bahagia?",
     answers: [
-      { answer: "Tes", score: 30 },
-      { answer: "Halo", score: 40 },
-      { answer: "Cek", score: 20 }
+      { answer: "Tanggal merah jatuh di hari Senin atau Jumat", score: 33 },
+      { answer: "Gajian cair lebih awal", score: 22 },
+      { answer: "Ada diskon gede di Shopee/Lazada", score: 17 },
+      { answer: "Bisa rebahan seharian tanpa gangguan", score: 13 },
+      { answer: "Indomie plus telur pas hujan", score: 10 },
+      { answer: "Pesanan COD datang lebih cepat dari jadwal", score: 5 }
     ]
   },
   9: {
-    question: "Selain belum mengantuk, apa penyebab orang tidak bisa tidur?",
+    question: "Hal yang bikin orang IT auto emosi?",
     answers: [
-      { answer: "Gelisah", score: 20 },
-      { answer: "Sakit", score: 10 },
-      { answer: "Insomnia", score: 30 },
-      { answer: "Minum Kopi", score: 40 },
-      { answer: "Hot Fix", score: 60 }
+      { answer: "Bang, bisa hack IG mantan gak?", score: 26 },
+      { answer: "Ini gampang kok, cepet aja", score: 24 },
+      { answer: "Revisi unlimited", score: 20 },
+      { answer: "Koding udah bener, tapi gak jalan tanpa alasan jelas", score: 16 },
+      { answer: "Koneksi internet mati pas deploy project", score: 9 },
+      { answer: "Errornya cuma titik koma doang! 😭", score: 5 }
     ]
   },
   10: {
     question:
-      "Apa nama makanan khas daerah yang sering dibeli untuk oleh-oleh saat bepergian keluar kota?",
+      "Hal yang paling ditakuti orang IT?",
     answers: [
-      { answer: "Getuk", score: 10 },
-      { answer: "Pempek", score: 30 },
-      { answer: "Lumpia", score: 20 },
-      { answer: "Bakpia", score: 40 }
+      { answer: "Database kehapus semua, bro...", score: 10 },
+      { answer: "Bugnya ada di production!", score: 30 },
+      { answer: "Klien minta sistemnya jalan di Internet Explorer", score: 20 },
+      { answer: "Deadline maju", score: 40 },
+      { answer: "Lagi deploy, tapi listrik mati", score: 40 },
+      { answer: "Gaji telat cair", score: 40 }
     ]
   }
 }
